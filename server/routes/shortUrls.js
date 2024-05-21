@@ -3,6 +3,20 @@ const router = Router();
 import ShortUrl from '../models/ShortUrl.js';
 import generateUniqueShortUrl from '../utils/generateUniqueShortUrl.js';
 
+// redirect to originalUrl
+router.get('/:shortUrl', async(req, res) => {
+  const {shortUrl} = req.params
+  try {
+    const targetData = await ShortUrl.findOne({shortUrl})
+    if(!targetData) {
+      return res.status(404).json({message: 'Short URL not found'})
+    }
+
+    res.redirect(targetData.originalUrl, 301)
+  } catch (error) {
+    res.status(500).json({error: 'Server error'})
+  }
+}) 
 
 
 // Get all short URLs
