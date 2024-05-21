@@ -1,17 +1,15 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const shortUrlRoutes = require('./routes/shortUrls');
+import express from 'express'
+import { connect } from 'mongoose';
+import BodyParser from 'body-parser';
+import shortUrlRoutes from './routes/shortUrls.js';
 
+const {json} = BodyParser
 const app = express();
-app.use(bodyParser.json());
+app.use(json());
 
 // Connect to MongoDB
 const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/url-shortener';
-mongoose.connect(mongoUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
+connect(mongoUri).then(() => {
   console.log('Connected to MongoDB');
 }).catch(err => {
   console.error('MongoDB connection error:', err);

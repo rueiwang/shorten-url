@@ -1,6 +1,6 @@
-const express = require('express');
-const router = express.Router();
-const ShortUrl = require('../models/ShortUrl');
+import { Router } from 'express';
+const router = Router();
+import ShortUrl from '../models/ShortUrl.js';
 
 // Create short URL
 router.post('/shorten', async (req, res) => {
@@ -21,6 +21,7 @@ router.post('/shorten', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const urls = await ShortUrl.find();
+    console.log(urls)
     res.json(urls);
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
@@ -41,4 +42,4 @@ router.get('/:shortUrl', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
