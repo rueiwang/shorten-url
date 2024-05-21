@@ -17,7 +17,7 @@ connect(mongoUri).then(() => {
 });
 
 // Use the short URL routes
-app.use('/api/shortUrls', shortUrlRoutes);
+app.use('/', shortUrlRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 3000;
